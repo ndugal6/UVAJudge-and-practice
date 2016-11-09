@@ -27,14 +27,19 @@ public class DrawingPics {
         int max = 50;
         BufferedImage off_Image;
         Graphics2D g2;
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 2000; i++) {
             int random = ThreadLocalRandom.current().nextInt(min, max + 1);
             off_Image = new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB);
             g2 = off_Image.createGraphics();
             String suffix = i + ".png";
-            drawWave(off_Image, g2, suffix, random);
-//            drawHorizontalLine(off_Image, g2, suffix, random);
-//            drawVerticalLine(off_Image, g2, suffix, random);
+            drawHorizontalLine(off_Image, g2, suffix, random);
+        }
+        for (int i = 0; i < 2000; i++) {
+            int random = ThreadLocalRandom.current().nextInt(min, max + 1);
+            off_Image = new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB);
+            g2 = off_Image.createGraphics();
+            String suffix = i + ".png";
+            drawVerticalLine(off_Image, g2, suffix, random);
         }
     }
     /*
