@@ -11,20 +11,16 @@ package my.UVAJudge;
  */
 import java.awt.Graphics2D;
 import java.awt.geom.QuadCurve2D;
-import java.util.*;
 import java.io.*;
 import java.awt.image.*;
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class DrawingPics {
 
     public static void main(String[] args) {
         int min = 0;
-        int max = 50;
+        int max = 40;
         BufferedImage off_Image;
         Graphics2D g2;
         for (int i = 0; i < 2000; i++) {
@@ -32,14 +28,7 @@ public class DrawingPics {
             off_Image = new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB);
             g2 = off_Image.createGraphics();
             String suffix = i + ".png";
-            drawHorizontalLine(off_Image, g2, suffix, random);
-        }
-        for (int i = 0; i < 2000; i++) {
-            int random = ThreadLocalRandom.current().nextInt(min, max + 1);
-            off_Image = new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB);
-            g2 = off_Image.createGraphics();
-            String suffix = i + ".png";
-            drawVerticalLine(off_Image, g2, suffix, random);
+            drawWave(off_Image, g2, suffix, random);
         }
     }
     /*
@@ -58,12 +47,17 @@ public class DrawingPics {
         
     }
     public static void drawWave(BufferedImage off_Image, Graphics2D g2, String name, int random) {
-        QuadCurve2D.Double curve = new QuadCurve2D.Double(25,50,50,85,75,50);
-//        int randomy = ThreadLocalRandom.current().nextInt(0,51);
-//        int randMid = ThreadLocalRandom.current().nextInt(0,11);
-//        QuadCurve2D.Double curve = new QuadCurve2D.Double(random,randomy,random+5,randomy+5, random+10, randomy+10);
-        
-        g2.draw(curve);
+        double y1 = 50;
+        double randomY = ThreadLocalRandom.current().nextInt(1, 40 + 1);
+        while (random+10 < 100) { 
+            while (Math.abs(randomY)+y1 >= 100) {
+                randomY = ThreadLocalRandom.current().nextInt(1, 20 + 1);
+            }
+            QuadCurve2D.Double curve = new QuadCurve2D.Double(random,y1,random+5,y1+randomY,random+10,y1);
+            randomY *= -1;
+            random += 10;
+            g2.draw(curve);
+        }
         save(off_Image, "wave" + name);
         
     }
