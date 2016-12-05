@@ -23,12 +23,14 @@ public class DrawingPics {
         int max = 40;
         BufferedImage off_Image;
         Graphics2D g2;
-        for (int i = 0; i < 2000; i++) {
-            int random = ThreadLocalRandom.current().nextInt(min, max + 1);
+        for (int i = 0; i < 20000; i++) {
             off_Image = new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB);
             g2 = off_Image.createGraphics();
-            String suffix = i + ".png";
-            drawWave(off_Image, g2, suffix, random);
+            String suffix = i + ".JPEG";
+            int random = ThreadLocalRandom.current().nextInt(min, max + 1);
+            //drawWave(off_Image, g2, suffix, random);
+            //drawHorizontalLine(off_Image, g2, suffix, random);
+            drawVerticalLine(off_Image, g2, suffix, random);
         }
     }
     /*
@@ -36,14 +38,14 @@ public class DrawingPics {
     */
     public static void drawHorizontalLine(BufferedImage off_Image, Graphics2D g2, String name, int random) {
         g2.drawLine(random, random, random+50, random);
-        save(off_Image, "horizontal" + name);
+        save(off_Image, "horizontal/horizontal" + name);
         
     }
     
     public static void drawVerticalLine(BufferedImage off_Image, Graphics2D g2, String name, int random) {
         
         g2.drawLine(random, random, random, random+50);
-        save(off_Image, "vertical" + name);
+        save(off_Image, "vertical/vertical" + name);
         
     }
     public static void drawWave(BufferedImage off_Image, Graphics2D g2, String name, int random) {
@@ -58,13 +60,14 @@ public class DrawingPics {
             random += 10;
             g2.draw(curve);
         }
-        save(off_Image, "wave" + name);
+        save(off_Image, "oscilating/wave" + name);
         
     }
     
     public static void save(BufferedImage image, String name) {
         try {
-            ImageIO.write(image, "png", new File(name));
+            //Name is new file being added, before that is full path to local folder
+            ImageIO.write(image, "jpeg", new File("/users/nickdugal/desktop/pics/"+name));
         } catch (IOException e) {}
     }
     
